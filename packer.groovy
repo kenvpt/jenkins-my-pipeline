@@ -61,22 +61,22 @@ def slavePodTemplate = """
         ])
     podTemplate(name: k8slabel, label: k8slabel, yaml: slavePodTemplate, showRawYaml: params.DebugMode) {
       node(k8slabel) {
-        stage("Docker check") {
+        stage("Build Image") {
             container("packer") {
                 sh 'packer --version'
             }
         }
-        stage("Terraform Deploy") {
-            container("terraform") {
+        stage("Send Notification to Slack") {
+            container("packer") {
                 println("""
                 Environment: ${params.Environment}
                 """)
-                sh 'terraform version'
+                echo 'hello'
             }
         }
-        stage("Kubectl Deploy") {
-            container("fuchicorptools") {
-                sh 'kubectl version'
+        stage("Send Email") {
+            container("packer") {
+                echo 'hello'
             }
         }
       }

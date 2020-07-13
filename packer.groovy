@@ -55,7 +55,7 @@ def slavePodTemplate = """
     """
     
     
-    podTemplate(name: k8slabel, label: k8slabel, yaml: slavePodTemplate, showRawYaml: params.DebugMode) {
+    podTemplate(name: k8slabel, label: k8slabel, yaml: slavePodTemplate, showRawYaml: false) {
       node(k8slabel) {
         stage("Build Image") {
             container("packer") {
@@ -64,9 +64,6 @@ def slavePodTemplate = """
         }
         stage("Send Notification to Slack") {
             container("packer") {
-                println("""
-                Environment: ${params.Environment}
-                """)
                 echo 'hello'
             }
         }
